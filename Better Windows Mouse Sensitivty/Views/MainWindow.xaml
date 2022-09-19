@@ -4,17 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Better_Windows_Mouse_Sensitivty.Views"
-        xmlns:Properties="clr-namespace:Better_Windows_Mouse_Sensitivty.Properties"
         xmlns:ViewModels="clr-namespace:Better_Windows_Mouse_Sensitivty.ViewModels" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="650"
+        Title="{DynamicResource WindowTitle}" Height="Auto" Width="650"
+        SizeToContent="Height"
         FontSize="18"
         ResizeMode="NoResize">
 
     <Window.DataContext>
         <ViewModels:MainWindowViewModel/>
     </Window.DataContext>
-    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -28,16 +27,15 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="1*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label x:Name="WarningLbl"
                Grid.Row="0" Grid.ColumnSpan="2"
                HorizontalAlignment="Left" VerticalAlignment="Bottom"
-               Margin="5"
+               Margin="5,0,0,0"
                FontWeight="Bold"
-               Content="Warning!: This modifies registry values, use at your own risk"/>
+               Content="{DynamicResource WarningMessage}"/>
         
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
@@ -48,17 +46,36 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <Label x:Name="SensitivityLbl"
-                   Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                   Margin="0,0,0,-5"
-                   HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                   Content="Mouse Sensitivity(Min:0.01, Max:3):"/>
+            <Grid  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,-5,0,-5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="SensitivityLbl"
+                       Grid.Column="0"
+                       HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                    <Label.Content>
+                        <TextBlock>
+                            <Run Text="{DynamicResource SensitivtyLabelText}"/>
+                            <Run Text="("/><Run Text="{DynamicResource Min}"/><Run Text=":"/>
+                            <Run Text="{Binding SensitivityMin}"/><Run Text=","/>
+                            <Run Text="{DynamicResource Max}"/><Run Text=":"/>
+                            <Run Text="{Binding SensitivityMax}"/><Run Text=")"/>
+                            
+                        </TextBlock>
+                    </Label.Content>
+                </Label>
+            </Grid>
             <xctk:DoubleUpDown
                 x:Name="SensitivityBox"
                 Grid.Row="1" Grid.Column="0"
                 HorizontalAlignment="Stretch"  VerticalAlignment="Center"
                 Margin="5"
-                Minimum="0.01" Maximum="3" Increment="0.01"
+                Minimum="{Binding SensitivityMin}" Maximum="{Binding SensitivityMax}" Increment="{Binding SensitivitySmallChange}"
                 AllowTextInput="True" ClipValueToMinMax="True" AllowSpin="True"
                 FormatString="F2" CultureInfo="en-US"
                 Value="{Binding Sensitivity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right"/>
@@ -66,9 +83,9 @@
                     Grid.Row="1" Grid.Column="1"
                     HorizontalAlignment="Stretch"  VerticalAlignment="Center"
                     Margin="5,0,5,0" Height="30"
-                    Minimum="0.01" Maximum="3"
-                    TickPlacement="Both" TickFrequency="0.01" IsSnapToTickEnabled="True"
-                    SmallChange="0.01" LargeChange="0.1"
+                    Minimum="{Binding SensitivityMin}" Maximum="{Binding SensitivityMax}"
+                    TickPlacement="Both" TickFrequency="{Binding SensitivitySmallChange}" IsSnapToTickEnabled="True"
+                    SmallChange="{Binding SensitivitySmallChange}" LargeChange="{Binding SensitivityLargeChange}"
                     Value="{Binding Sensitivity}">
                 <Slider.LayoutTransform>
                     <ScaleTransform ScaleY="1.5" CenterX="15" CenterY="15"/>
@@ -81,50 +98,52 @@
                 BorderBrush="Black"
                 BorderThickness="0,1,0,0">
         </Border>
-
         
         <Button x:Name="ConfirmBtn"
                 Grid.Row="3" Grid.Column="0"
                 HorizontalAlignment="Left" VerticalAlignment="Stretch"
-                Margin="3"
-                Content="Confirm Sensitivty"
-                Command="{Binding ConfirmCommand}"/>
+                Margin="5,10,5,10" Width="140"
+                Command="{Binding ConfirmCommand}">
+            <TextBlock Text="{DynamicResource ConfirmButtonText}" TextWrapping="Wrap" TextAlignment="Center"/>
+        </Button>
         <TextBlock x:Name="ConfirmBlock"
                    Grid.Row="3" Grid.Column="1"
                    HorizontalAlignment="Left" VerticalAlignment="Center"
                    Margin="5"
-                   Text="Restart PC or relog windows user for settings to take effect. Creates a backup .reg file with current date in this programs folder." TextWrapping="Wrap"/>
+                   Text="{DynamicResource ConfirmMessage}" TextWrapping="Wrap"/>
 
         <Button x:Name="RestorLastBackupBtn"
                 Grid.Row="4" Grid.Column="0"
                 HorizontalAlignment="Left" VerticalAlignment="Stretch"
-                Margin="5"
-                Content="Restore Last Backup"
-                Command="{Binding RestoreLastBackupCommand}"/>
+                Margin="5,10,5,10" Width="140"
+                Command="{Binding RestoreLastBackupCommand}">
+            <TextBlock Text="{DynamicResource ResetToDefaultButtonText}" TextWrapping="Wrap" TextAlignment="Center"/>
+        </Button>
         <TextBlock x:Name="RestoreLastBackupBlock"
                    Grid.Row="4" Grid.Column="1"
                    HorizontalAlignment="Left" VerticalAlignment="Center"
                    Margin="5"
-                   Text="Resets relevant registry to before last change by this program." TextWrapping="Wrap"/>
+                   Text="{DynamicResource RestoreLastBackupMessage}" TextWrapping="Wrap"/>
 
-        
+
         <Button x:Name="ResetToDefaultBtn"
                 Grid.Row="5" Grid.Column="0"
                 HorizontalAlignment="Left" VerticalAlignment="Stretch"
-                Margin="5"
-                Content="Reset To Default"
-                Command="{Binding ResetToDefaultCommand}"/>
+                Margin="5,10,5,10" Width="140" MinHeight="40"
+                Command="{Binding ResetToDefaultCommand}">
+            <TextBlock Text="{DynamicResource ResetToDefaultButtonText}" TextWrapping="Wrap"/>
+        </Button>
         <TextBlock x:Name="ResetToDefaultBlock"
                    Grid.Row="5" Grid.Column="1"
                    HorizontalAlignment="Left" VerticalAlignment="Center"
                    Margin="5"
-                   Text="Resets relevant registry values back to the windows default" TextWrapping="Wrap"/>
+                   Text="{DynamicResource ResetToDefaultMessage}" TextWrapping="Wrap"/>
 
         <TextBlock x:Name="InfoBlock"
-            Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
-            HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
-            Margin="5"
-            FontWeight="DemiBold"
-            Text="This program works by modifying the 'Enhance Precision'(so don't disable it) smoothing curve in the registry to be a flat curve(that means no mouse acceleration)based on the value set in this program." TextWrapping="Wrap"/>
+                   Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
+                   Margin="5"
+                   FontWeight="DemiBold"
+                   Text="{DynamicResource InfoMessage}" TextWrapping="Wrap"/>
     </Grid>
 </Window>

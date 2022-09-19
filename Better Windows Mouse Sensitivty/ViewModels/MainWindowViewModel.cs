@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Buffers.Binary;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -35,10 +36,27 @@ namespace Better_Windows_Mouse_Sensitivty.ViewModels
             {
                 _sensitivity = GetSensitivity(curve);
             }
+
+            SensitivityMin = 0.01d;
+            SensitivityMax = 3.0d;
+            SensitivitySmallChange = 0.01d;
+            SensitivityLargeChange = 0.1d;
         }
 
         private double _sensitivity;
         public double Sensitivity { get => _sensitivity; set => SetProperty(ref _sensitivity, Math.Round(value, 2)); }
+
+        private double _sensitivityMin;
+        public double SensitivityMin { get => _sensitivityMin; set => SetProperty(ref _sensitivityMin, value); }
+
+        private double _sensitivityMax;
+        public double SensitivityMax { get => _sensitivityMax; set => SetProperty(ref _sensitivityMax, value); }
+
+        private double _sensitivitySmallChange;
+        public double SensitivitySmallChange { get => _sensitivitySmallChange; set => SetProperty(ref _sensitivitySmallChange, value); }
+
+        private double _sentivitityLargeChange;
+        public double SensitivityLargeChange { get => _sentivitityLargeChange; set => SetProperty(ref _sentivitityLargeChange, value); }
 
         private ICommand _confirmCommand;
         public ICommand ConfirmCommand { get => _confirmCommand; set => SetProperty(ref _confirmCommand, value); }
