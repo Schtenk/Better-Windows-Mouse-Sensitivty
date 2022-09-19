@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Better_Windows_Mouse_Sensitivty.MouseRegistryData
 {
-    public class DefaultWin10Values
+    public static class DefaultWin10Values
     {
         public const int MouseSensitivity = 10;
         public const byte MouseSpeed = 0;
-        public static readonly new List<byte> SmoothMouseXCurve = new List<byte>
+        public static readonly byte[] SmoothMouseXCurve = new byte[]
         {
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
             0x15, 0x6e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -18,7 +18,7 @@ namespace Better_Windows_Mouse_Sensitivty.MouseRegistryData
             0x29, 0xdc, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00,
             0x00, 0x00, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00
         };
-        public static readonly List<byte> SmoothMouseYCurve = new List<byte>
+        public static readonly byte[] SmoothMouseYCurve = new byte[]
         {
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
             0xfd, 0x11, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
