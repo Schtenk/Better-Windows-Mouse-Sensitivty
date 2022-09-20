@@ -7,6 +7,8 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using System.Windows;
+using Better_Windows_Mouse_Sensitivty.Constants;
 using Better_Windows_Mouse_Sensitivty.Models;
 using Microsoft.Win32;
 
@@ -27,16 +29,16 @@ namespace Better_Windows_Mouse_Sensitivty.MouseRegistryData
         private static object GetRegistryValue(string valueKey)
         {
             var key = Registry.CurrentUser.OpenSubKey(BasePath);
-            if (key == null) { throw new NullReferenceException($"Can't open registry path {BasePath}"); }
+            if (key == null) { throw new NullReferenceException($"{Application.Current.Resources[LocalizationKeys.OpenRegPathFailedMessage]} {BasePath}"); }
             var value = key.GetValue(valueKey);
-            if (value == null) { throw new NullReferenceException($"Can't get registry value for {valueKey}"); }
+            if (value == null) { throw new NullReferenceException($"{Application.Current.Resources[LocalizationKeys.GetRegValueFailedMessage]} {valueKey}"); }
             return value;
         }
 
         private static void SetRegistryValue(string valueKey, object data, RegistryValueKind valueKind)
         {
             var key = Registry.CurrentUser.OpenSubKey(BasePath, true);
-            if (key == null) { throw new NullReferenceException($"Can't open registry path {BasePath}"); }
+            if (key == null) { throw new NullReferenceException($"{Application.Current.Resources[LocalizationKeys.OpenRegPathFailedMessage]} {BasePath}"); }
             key.SetValue(valueKey, data, valueKind);
         }
 

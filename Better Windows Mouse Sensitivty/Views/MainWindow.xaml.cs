@@ -24,5 +24,6 @@ namespace Better_Windows_Mouse_Sensitivty.Views
         {
             InitializeComponent();
         }
+
     }
 }

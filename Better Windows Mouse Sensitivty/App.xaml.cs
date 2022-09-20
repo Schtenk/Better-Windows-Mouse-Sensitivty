@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using Better_Windows_Mouse_Sensitivty.ViewModels;
 using Better_Windows_Mouse_Sensitivty.Views;
 
 namespace Better_Windows_Mouse_Sensitivty
@@ -44,7 +45,7 @@ namespace Better_Windows_Mouse_Sensitivty
             if(dict.Count > 0)
             {
                 Current.Resources.MergedDictionaries.Clear();
-                Current.Resources.MergedDictionaries.Add(dict);
+                Current.Resources = dict;
             }
 
         }

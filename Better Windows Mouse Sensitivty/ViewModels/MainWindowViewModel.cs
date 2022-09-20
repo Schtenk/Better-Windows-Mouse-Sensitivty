@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Buffers.Binary;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Markup;
+using Better_Windows_Mouse_Sensitivty.Constants;
 using Better_Windows_Mouse_Sensitivty.Models;
 using Better_Windows_Mouse_Sensitivty.MouseRegistryData;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -21,9 +23,10 @@ namespace Better_Windows_Mouse_Sensitivty.ViewModels
 {
     public class MainWindowViewModel: ObservableObject
     {
+
         public MainWindowViewModel()
         {
-            _confirmCommand = new RelayCommand(ConfirmSensitivity);
+            _confirmCommand = new RelayCommand(ConfirmNewSensitivity);
             _restoreLastBackupCommand = new RelayCommand(RestoreLastBackup);
             _resetToDefaultCommand = new RelayCommand(ResetToDefault);
 
@@ -42,6 +45,8 @@ namespace Better_Windows_Mouse_Sensitivty.ViewModels
             SensitivitySmallChange = 0.01d;
             SensitivityLargeChange = 0.1d;
         }
+
+        
 
         private double _sensitivity;
         public double Sensitivity { get => _sensitivity; set => SetProperty(ref _sensitivity, Math.Round(value, 2)); }
@@ -67,7 +72,7 @@ namespace Better_Windows_Mouse_Sensitivty.ViewModels
         private ICommand _resetToDefaultCommand;
         public ICommand ResetToDefaultCommand { get => _resetToDefaultCommand; set => SetProperty(ref _resetToDefaultCommand, value); }
 
-        public void ConfirmSensitivity()
+        public void ConfirmNewSensitivity()
         {
             RegistryHelper.CreateBackup();
             var curve = ApplySensitivty(FlatWin10Values.SmoothMouseXCurve, Sensitivity);
@@ -75,7 +80,7 @@ namespace Better_Windows_Mouse_Sensitivty.ViewModels
             RegistryHelper.SetMouseSpeed(FlatWin10Values.MouseSpeed);
             RegistryHelper.SetSmoothMouseXCurve(curve);
             RegistryHelper.SetSmoothMouseYCurve(FlatWin10Values.SmoothMouseYCurve);
-
+            MessageBox.Show($"{Application.Current.Resources[LocalizationKeys.ConfirmConfirmation]}");
         }
 
         public void RestoreLastBackup()
@@ -83,10 +88,12 @@ namespace Better_Windows_Mouse_Sensitivty.ViewModels
             var model = JsonSerializer.Deserialize<MouseRegistryModel>(File.ReadAllText($"{RegistryHelper.BackupPathWithoutExt}{RegistryHelper.BackupJsonExt}"));
             if (model == null)
             {
-                MessageBox.Show("Could not load backup");
+                MessageBox.Show(Application.Current.Resources[LocalizationKeys.BackupLoadFailedMessage].ToString());
                 return;
             }
             RegistryHelper.SetFromMouseRegistryModel(model);
+            Sensitivity = GetSensitivity(RegistryHelper.GetSmoothMouseXCurve());
+            MessageBox.Show($"{Application.Current.Resources[LocalizationKeys.RestoreLastBackupConfirmation]}");
         }
 
         public void ResetToDefault()
@@ -95,6 +102,8 @@ namespace Better_Windows_Mouse_Sensitivty.ViewModels
             RegistryHelper.SetMouseSpeed(DefaultWin10Values.MouseSpeed);
             RegistryHelper.SetSmoothMouseXCurve(DefaultWin10Values.SmoothMouseXCurve);
             RegistryHelper.SetSmoothMouseYCurve(DefaultWin10Values.SmoothMouseYCurve);
+            Sensitivity = 1.0d;
+            MessageBox.Show($"{Application.Current.Resources[LocalizationKeys.ResetToDefaultConfirmation]}");
         }
 
         public byte[] ApplySensitivty(ReadOnlySpan<byte> curve, double sensitivity, bool isXCurve = true)
