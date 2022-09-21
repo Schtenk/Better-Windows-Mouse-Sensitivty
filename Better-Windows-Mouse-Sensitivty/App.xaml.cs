@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using Better_Windows_Mouse_Sensitivty.Localization;
 using Better_Windows_Mouse_Sensitivty.ViewModels;
 using Better_Windows_Mouse_Sensitivty.Views;
 using Squirrel;
@@ -58,11 +59,13 @@ namespace Better_Windows_Mouse_Sensitivty
                 onAppUninstall: OnAppUninstall,
                 onEveryRun: OnAppRun);
 
+            SetLocalizationDictionary(Thread.CurrentThread.CurrentUICulture.ToString());
+
+            Current.MainWindow = new MainWindow();
+            Current.MainWindow.Show();
+
             CheckForUpdate();
 
-            SetLocalizationDictionary(Thread.CurrentThread.CurrentUICulture.ToString());
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
         }
 
 
@@ -78,19 +81,22 @@ namespace Better_Windows_Mouse_Sensitivty
         private void OnAppUninstall(SemanticVersion version, IAppTools tools)
         {
             tools.RemoveShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
-
         }
 
         private async Task CheckForUpdate()
         {
             try
             {
-                using var updateManager = new GithubUpdateManager("https://github.com/Schtenk/Better-Windows-Mouse-Sensitivty");
+                using var updateManager = new GithubUpdateManager("http://github.com/Schtenk/Better-Windows-Mouse-Sensitivty");
                 var result = await updateManager.UpdateApp();
                 if(result != null)
                 {
-                    var msgBoxResult = MessageBox.Show("New update", "New Update Found", MessageBoxButton.YesNo);
-                    if (msgBoxResult == MessageBoxResult.Yes) UpdateManager.RestartApp();
+                    var popupResult = PopupWindow.ShowDialog(
+                        $"{Current.Resources[Keys.UpdateInstalledMessage]}",
+                        $"{Current.Resources[Keys.UpdateInstalledTitle]}",
+                        PopupButtons.YesNo);
+
+                    if (popupResult == PopupResult.Yes) UpdateManager.RestartApp();
                 }
             }
             catch

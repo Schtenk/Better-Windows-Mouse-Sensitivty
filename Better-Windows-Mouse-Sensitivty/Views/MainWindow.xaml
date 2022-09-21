@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Better_Windows_Mouse_Sensitivty.Views"
         xmlns:ViewModels="clr-namespace:Better_Windows_Mouse_Sensitivty.ViewModels"
-        xmlns:Constants="clr-namespace:Better_Windows_Mouse_Sensitivty.Constants"
+        xmlns:Localization="clr-namespace:Better_Windows_Mouse_Sensitivty.Localization"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Height="Auto" Width="650"
         SizeToContent="Height"
         FontSize="18"
         ResizeMode="NoResize"
-        Title="{DynamicResource {x:Static Constants:LocalizationKeys.WindowTitle}}">
+        Title="{Binding WindowTitle}">
 
     <Window.DataContext>
-        <ViewModels:MainWindowViewModel/>
+        <ViewModels:MainViewModel/>
     </Window.DataContext>
     
     <Grid>
@@ -39,7 +39,7 @@
                HorizontalAlignment="Left" VerticalAlignment="Bottom"
                Margin="5,0,0,0"
                FontWeight="Bold"
-               Content="{DynamicResource {x:Static Constants:LocalizationKeys.WarningMessage}}"/>
+               Content="{DynamicResource {x:Static Localization:Keys.WarningMessage}}"/>
         
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
@@ -64,10 +64,10 @@
                        HorizontalAlignment="Left" VerticalAlignment="Bottom">
                     <Label.Content>
                         <TextBlock>
-                            <Run Text="{DynamicResource ResourceKey={x:Static Constants:LocalizationKeys.SensitivtyLabelText}}"/>
-                            <Run Text="("/><Run Text="{DynamicResource ResourceKey={x:Static Constants:LocalizationKeys.Min}}"/><Run Text=":"/>
+                            <Run Text="{DynamicResource ResourceKey={x:Static Localization:Keys.SensitivtyLabelText}}"/>
+                            <Run Text="("/><Run Text="{DynamicResource ResourceKey={x:Static Localization:Keys.Min}}"/><Run Text=":"/>
                             <Run Text="{Binding SensitivityMin}"/><Run Text=","/>
-                            <Run Text="{DynamicResource ResourceKey={x:Static Constants:LocalizationKeys.Max}}"/><Run Text=":"/>
+                            <Run Text="{DynamicResource ResourceKey={x:Static Localization:Keys.Max}}"/><Run Text=":"/>
                             <Run Text="{Binding SensitivityMax}"/><Run Text=")"/>
                             
                         </TextBlock>
@@ -108,26 +108,26 @@
                 HorizontalAlignment="Left" VerticalAlignment="Stretch"
                 Margin="5,10,5,10" Width="140"
                 Command="{Binding ConfirmCommand}">
-            <TextBlock Text="{DynamicResource {x:Static Constants:LocalizationKeys.ConfirmButtonText}}" TextWrapping="Wrap" TextAlignment="Center"/>
+            <TextBlock Text="{DynamicResource {x:Static Localization:Keys.ConfirmButtonText}}" TextWrapping="Wrap" TextAlignment="Center"/>
         </Button>
         <TextBlock x:Name="ConfirmBlock"
                    Grid.Row="3" Grid.Column="1"
                    HorizontalAlignment="Left" VerticalAlignment="Center"
                    Margin="5"
-                   Text="{DynamicResource {x:Static Constants:LocalizationKeys.ConfirmMessage}}" TextWrapping="Wrap"/>
+                   Text="{DynamicResource {x:Static Localization:Keys.ConfirmMessage}}" TextWrapping="Wrap"/>
 
         <Button x:Name="RestorLastBackupBtn"
                 Grid.Row="4" Grid.Column="0"
                 HorizontalAlignment="Left" VerticalAlignment="Stretch"
                 Margin="5,10,5,10" Width="140"
                 Command="{Binding RestoreLastBackupCommand}">
-            <TextBlock Text="{DynamicResource {x:Static Constants:LocalizationKeys.RestoreLastBackupButtonText}}" TextWrapping="Wrap" TextAlignment="Center"/>
+            <TextBlock Text="{DynamicResource {x:Static Localization:Keys.RestoreLastBackupButtonText}}" TextWrapping="Wrap" TextAlignment="Center"/>
         </Button>
         <TextBlock x:Name="RestoreLastBackupBlock"
                    Grid.Row="4" Grid.Column="1"
                    HorizontalAlignment="Left" VerticalAlignment="Center"
                    Margin="5"
-                   Text="{DynamicResource {x:Static Constants:LocalizationKeys.RestoreLastBackupMessage}}" TextWrapping="Wrap"/>
+                   Text="{DynamicResource {x:Static Localization:Keys.RestoreLastBackupMessage}}" TextWrapping="Wrap"/>
 
 
         <Button x:Name="ResetToDefaultBtn"
@@ -135,19 +135,19 @@
                 HorizontalAlignment="Left" VerticalAlignment="Stretch"
                 Margin="5,10,5,10" Width="140" MinHeight="40"
                 Command="{Binding ResetToDefaultCommand}">
-            <TextBlock Text="{DynamicResource {x:Static Constants:LocalizationKeys.ResetToDefaultButtonText}}" TextWrapping="Wrap"/>
+            <TextBlock Text="{DynamicResource {x:Static Localization:Keys.ResetToDefaultButtonText}}" TextWrapping="Wrap"/>
         </Button>
         <TextBlock x:Name="ResetToDefaultBlock"
                    Grid.Row="5" Grid.Column="1"
                    HorizontalAlignment="Left" VerticalAlignment="Center"
                    Margin="5"
-                   Text="{DynamicResource {x:Static Constants:LocalizationKeys.ResetToDefaultMessage}}" TextWrapping="Wrap"/>
+                   Text="{DynamicResource {x:Static Localization:Keys.ResetToDefaultMessage}}" TextWrapping="Wrap"/>
 
         <TextBlock x:Name="InfoBlock"
                    Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
                    HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
                    Margin="5"
                    FontWeight="DemiBold"
-                   Text="{DynamicResource {x:Static Constants:LocalizationKeys.InfoMessage}}" TextWrapping="Wrap"/>
+                   Text="{DynamicResource {x:Static Localization:Keys.InfoMessage}}" TextWrapping="Wrap"/>
     </Grid>
 </Window>

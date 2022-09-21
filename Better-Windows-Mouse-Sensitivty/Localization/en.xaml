@@ -1,80 +1,105 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:Constants="clr-namespace:Better_Windows_Mouse_Sensitivty.Constants"
-                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+                    xmlns:System="clr-namespace:System;assembly=mscorlib"
+                    xmlns:Localization="clr-namespace:Better_Windows_Mouse_Sensitivty.Localization">
 
-    <System:String x:Key="{x:Static Constants:LocalizationKeys.BackupLoadFailedMessage}">
-        Could not load backup
-    </System:String>
-    
-    <System:String x:Key="{x:Static Constants:LocalizationKeys.ConfirmButtonText}">
-        Confirm New Sensitivity
-    </System:String>
-
-    <System:String x:Key="{x:Static Constants:LocalizationKeys.ConfirmConfirmation}">
-        New sensitivty set! Restart or relog for new settings to take effect.
-    </System:String>
-    
-    <System:String x:Key="{x:Static Constants:LocalizationKeys.ConfirmMessage}">
-        Restart PC or relog windows user for settings to take effect. Creates a backup .reg file with current date in this programs folder.
-    </System:String>
-
-    <System:String x:Key="{x:Static Constants:LocalizationKeys.GetRegValueFailedMessage}">
-        Can't get registry value for
-    </System:String>
-
-    <System:String x:Key="{x:Static Constants:LocalizationKeys.InfoMessage}">
-        This program works by modifying the 'Enhance Precision'(so don't disable it) smoothing curve in the registry to be a flat curve(that means no mouse acceleration)based on the value set in this program.
-    </System:String>
-    
-    <System:String x:Key="{x:Static Constants:LocalizationKeys.Max}">
-        Max
-    </System:String>
-    
-    <System:String x:Key="{x:Static Constants:LocalizationKeys.Min}">
-        Min
-    </System:String>
-
-    <System:String x:Key="{x:Static Constants:LocalizationKeys.OpenRegPathFailedMessage}">
-        Can't open registry path
-    </System:String>
-    
-    <System:String x:Key="{x:Static Constants:LocalizationKeys.ResetToDefaultButtonText}">
-        Restet To Default
-    </System:String>
-
-    <System:String x:Key="{x:Static Constants:LocalizationKeys.ResetToDefaultConfirmation}">
-        Settings are now reset to the windows defaults.
-    </System:String>
-    
-    <System:String x:Key="{x:Static Constants:LocalizationKeys.ResetToDefaultMessage}">
-        Resets relevant registry values to the windows default values.
-    </System:String>
-    
-    <System:String x:Key="{x:Static Constants:LocalizationKeys.RestoreLastBackupButtonText}">
-        Restore Last Backup
-    </System:String>
-
-    <System:String x:Key="{x:Static Constants:LocalizationKeys.RestoreLastBackupConfirmation}">
-        Settings are now reset to last backup.
-    </System:String>
-    
-    <System:String x:Key="{x:Static Constants:LocalizationKeys.RestoreLastBackupMessage}">
-        Restores the relevant registry values back to the ones saved in the last backup.
-    </System:String>
-    
-    <System:String x:Key="{x:Static Constants:LocalizationKeys.SensitivtyLabelText}">
-        Mouse Sensitivity
-    </System:String>
-    
-    <System:String x:Key="{x:Static Constants:LocalizationKeys.WarningMessage}">
-        Warning!: This modifies registry values, use at your own risk!
-    </System:String>
-    
-    <System:String x:Key="{x:Static Constants:LocalizationKeys.WindowTitle}">
+    <System:String x:Key="{x:Static Localization:Keys.WindowTitle}">
         Better Windows Mouse Sensitivity
     </System:String>
 
+    <System:String x:Key="{x:Static Localization:Keys.WarningMessage}">
+        Warning!: This modifies registry values, use at your own risk!
+    </System:String>
+
+    <System:String x:Key="{x:Static Localization:Keys.SensitivtyLabelText}">
+        Mouse Sensitivity
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.Max}">
+        Max
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.Min}">
+        Min
+    </System:String>
+
+    <System:String x:Key="{x:Static Localization:Keys.ConfirmButtonText}">
+        Confirm New Sensitivity
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.ConfirmMessage}">
+        Restart PC or relog windows user for settings to take effect. Creates a backup .reg file with current date in this programs folder.
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.ConfirmConfirmationTitle}">
+        New Sensitivity Set.
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.ConfirmConfirmationMessage}">
+        New sensitivity set! Restart or relog for new settings to take effect.
+    </System:String>
+
+    <System:String x:Key="{x:Static Localization:Keys.RestoreLastBackupButtonText}">
+        Restore Last Backup
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.RestoreLastBackupMessage}">
+        Restores the relevant registry values back to the ones saved in the last backup.
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.RestoreLastBackupConfirmationTitle}">
+        Backup Restored
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.RestoreLastBackupConfirmationMessage}">
+        Settings are now restored to the last backup.
+    </System:String>
+
+    <System:String x:Key="{x:Static Localization:Keys.ResetToDefaultButtonText}">
+        Restet To Default
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.ResetToDefaultMessage}">
+        Resets relevant registry values to the windows default values.
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.ResetToDefaultConfirmationTitle}">
+         Settings Reset
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.ResetToDefaultConfirmationMessage}">
+        Settings are now reset to the windows defaults.
+    </System:String>
+
+    <System:String x:Key="{x:Static Localization:Keys.InfoMessage}">
+        This program works by modifying the 'Enhance Precision'(so don't disable it) smoothing curve in the registry to be a flat curve(that means no mouse acceleration)based on the value set in this program.
+    </System:String>
+
+    <System:String x:Key="{x:Static Localization:Keys.BackupLoadFailedTitle}">
+        Loading Backup Failed
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.BackupLoadFailedMessage}">
+        Could not load backup
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.OpenRegPathFailedTitle}">
+        Opening Registry Path Failed
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.OpenRegPathFailedMessage}">
+        Can't open registry path
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.GetRegValueFailedTitle}">
+        Getting Registry Value Failed
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.GetRegValueFailedMessage}">
+        Can't get registry value for
+    </System:String>
+
+    <System:String x:Key="{x:Static Localization:Keys.UpdateInstalledTitle}">
+        New Update Installed
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.UpdateInstalledMessage}">
+        New update installed, do you want to restart now?
+    </System:String>
+
+    <System:String x:Key="{x:Static Localization:Keys.OKButtonText}">
+        OK
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.CancelButtonText}">
+        Cancel
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.NoButtonText}">
+        No
+    </System:String>
+    <System:String x:Key="{x:Static Localization:Keys.YesButtonText}">
+        Yes
+    </System:String>
 </ResourceDictionary>

@@ -8,7 +8,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Windows;
-using Better_Windows_Mouse_Sensitivty.Constants;
+using Better_Windows_Mouse_Sensitivty.Localization;
 using Better_Windows_Mouse_Sensitivty.Models;
 using Microsoft.Win32;
 
@@ -16,7 +16,8 @@ namespace Better_Windows_Mouse_Sensitivty.MouseRegistryData
 {
     public class RegistryHelper
     {
-        public const string BackupPathWithoutExt = "backup";
+        public const string BackupPath = "backups\\";
+        public const string BackupFilePaththoutExt = $"{BackupPath}backup";
         public const string BackupJsonExt = ".json";
         public const string BackupRegExt = ".reg";
 
@@ -29,16 +30,16 @@ namespace Better_Windows_Mouse_Sensitivty.MouseRegistryData
         private static object GetRegistryValue(string valueKey)
         {
             var key = Registry.CurrentUser.OpenSubKey(BasePath);
-            if (key == null) { throw new NullReferenceException($"{Application.Current.Resources[LocalizationKeys.OpenRegPathFailedMessage]} {BasePath}"); }
+            if (key == null) { throw new NullReferenceException($"{Application.Current.Resources[Keys.OpenRegPathFailedMessage]} {BasePath}"); }
             var value = key.GetValue(valueKey);
-            if (value == null) { throw new NullReferenceException($"{Application.Current.Resources[LocalizationKeys.GetRegValueFailedMessage]} {valueKey}"); }
+            if (value == null) { throw new NullReferenceException($"{Application.Current.Resources[Keys.GetRegValueFailedMessage]} {valueKey}."); }
             return value;
         }
 
         private static void SetRegistryValue(string valueKey, object data, RegistryValueKind valueKind)
         {
             var key = Registry.CurrentUser.OpenSubKey(BasePath, true);
-            if (key == null) { throw new NullReferenceException($"{Application.Current.Resources[LocalizationKeys.OpenRegPathFailedMessage]} {BasePath}"); }
+            if (key == null) { throw new NullReferenceException($"{Application.Current.Resources[Keys.OpenRegPathFailedMessage]} {BasePath}"); }
             key.SetValue(valueKey, data, valueKind);
         }
 
@@ -113,9 +114,10 @@ namespace Better_Windows_Mouse_Sensitivty.MouseRegistryData
             {
                 WriteIndented = true
             });
-            File.WriteAllText($"{BackupPathWithoutExt}{BackupJsonExt}", json);
+            Directory.CreateDirectory(BackupPath);
+            File.WriteAllText($"{BackupFilePaththoutExt}{BackupJsonExt}", json);
 
-            using var writer = File.CreateText($"{BackupPathWithoutExt}-{DateTime.Now.ToString("yyyy_MM_dd(HH_mm_ss)")}{BackupRegExt}");
+            using var writer = File.CreateText($"{BackupFilePaththoutExt}{BackupJsonExt}-{DateTime.Now.ToString("yyyy_MM_dd(HH_mm_ss)")}{BackupRegExt}");
             writer.WriteLine("Windows Registry Editor Version 5.00");
             writer.WriteLine("");
             writer.WriteLine($"[{Registry.CurrentUser.Name}\\{BasePath}]");
