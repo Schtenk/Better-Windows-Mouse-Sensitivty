@@ -144,7 +144,7 @@ namespace Better_Windows_Mouse_Sensitivty.ViewModels
         public double GetSensitivity(ReadOnlySpan<byte> curve, bool isXCurve = true)
         {
             var arr = curve.ToArray();
-            int coordinate = 0;
+            int coordinate;
             double sensitivity = 0.0d;
             double c = 0.0d;
             for (int i = 0; i < arr.Length; i += 8)
