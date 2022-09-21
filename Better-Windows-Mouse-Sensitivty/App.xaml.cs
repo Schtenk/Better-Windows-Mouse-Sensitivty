@@ -93,8 +93,8 @@ namespace Better_Windows_Mouse_Sensitivty
                 if(result != null)
                 {
                     var popupResult = PopupDialog.ShowDialog(
-                        $"{Current.Resources[Keys.UpdateInstalledMessage]}",
                         $"{Current.Resources[Keys.UpdateInstalledTitle]}",
+                        $"{Current.Resources[Keys.UpdateInstalledMessage]}",
                         PopupButtons.YesNo);
 
                     if (popupResult == PopupResult.Yes) UpdateManager.RestartApp();
