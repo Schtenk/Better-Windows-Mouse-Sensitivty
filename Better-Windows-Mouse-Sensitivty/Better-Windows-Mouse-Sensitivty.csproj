@@ -8,6 +8,7 @@
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<RestorePackagesPath>..\Packages</RestorePackagesPath>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<Version>$(VersionPrefix)</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -22,7 +23,7 @@
 
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="if $(ConfigurationName) == Release call &quot;$(ProjectDir)\Pack.bat&quot; &quot;$(ProjectPath)&quot; &quot;$(SolutionDir)&quot; &quot;$(TargetName)&quot; &quot;$(PackageVersion)&quot; &quot;$(TargetFramework.TrimEnd('-windows'))&quot; &quot;$(TargetDir.TrimEnd('\'))&quot; &quot;$(ProjectDir)Releases&quot;" />
+		<Exec Command="if $(ConfigurationName) == Release call &quot;$(ProjectDir)\Pack.bat&quot; &quot;$(ProjectPath)&quot; &quot;$(SolutionDir)&quot; &quot;$(TargetName)&quot; &quot;$(PackageVersion)-pre&quot; &quot;$(TargetFramework.TrimEnd('-windows'))&quot; &quot;$(TargetDir.TrimEnd('\'))&quot; &quot;$(ProjectDir)Releases&quot;" />
 	</Target>
 
 </Project>
