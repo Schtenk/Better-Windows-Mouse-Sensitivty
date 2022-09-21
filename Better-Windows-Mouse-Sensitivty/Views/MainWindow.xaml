@@ -18,7 +18,7 @@
         <ViewModels:MainViewModel/>
     </Window.DataContext>
     
-    <Grid>
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="1*"/>

@@ -61,7 +61,7 @@
     </System:String>
 
     <System:String x:Key="{x:Static Localization:Keys.InfoMessage}">
-        This program works by modifying the 'Enhance Precision'(so don't disable it) smoothing curve in the registry to be a flat curve(that means no mouse acceleration)based on the value set in this program.
+        This program works by changing the "Enhance Precision" mouse settings smoothing curve to a flat curve (i.e. no mouse acceleration) based on the mouse sensitivty set in the program.
     </System:String>
 
     <System:String x:Key="{x:Static Localization:Keys.BackupLoadFailedTitle}">
