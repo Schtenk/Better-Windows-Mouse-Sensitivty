@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<RootNamespace>Better_Windows_Mouse_Sensitivty</RootNamespace>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<RestorePackagesPath>..\Packages</RestorePackagesPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Clowd.Squirrel" Version="2.9.42" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+		<PackageReference Include="Extended.Wpf.Toolkit" Version="4.4.0" />
+	</ItemGroup>
+
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="if $(ConfigurationName) == Release call $(ProjectDir)Pack.bat" />
+	</Target>
+
+</Project>

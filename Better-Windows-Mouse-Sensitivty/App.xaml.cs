@@ -16,6 +16,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Better_Windows_Mouse_Sensitivty.ViewModels;
 using Better_Windows_Mouse_Sensitivty.Views;
+using Squirrel;
 
 namespace Better_Windows_Mouse_Sensitivty
 {
@@ -52,9 +53,50 @@ namespace Better_Windows_Mouse_Sensitivty
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            SquirrelAwareApp.HandleEvents(
+                onInitialInstall: OnAppInstall,
+                onAppUninstall: OnAppUninstall,
+                onEveryRun: OnAppRun);
+
+            CheckForUpdate();
+
             SetLocalizationDictionary(Thread.CurrentThread.CurrentUICulture.ToString());
             var mainWindow = new MainWindow();
             mainWindow.Show();
+        }
+
+
+        private void OnAppRun(SemanticVersion version, IAppTools tools, bool firstRun)
+        {
+            tools.SetProcessAppUserModelId();
+        }
+        private void OnAppInstall(SemanticVersion version, IAppTools tools)
+        {
+            tools.CreateShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
+        }
+
+        private void OnAppUninstall(SemanticVersion version, IAppTools tools)
+        {
+            tools.RemoveShortcutForThisExe(ShortcutLocation.StartMenu | ShortcutLocation.Desktop);
+
+        }
+
+        private async Task CheckForUpdate()
+        {
+            try
+            {
+                using var updateManager = new GithubUpdateManager("https://github.com/Schtenk/Better-Windows-Mouse-Sensitivty");
+                var result = await updateManager.UpdateApp();
+                if(result != null)
+                {
+                    var msgBoxResult = MessageBox.Show("New update", "New Update Found", MessageBoxButton.YesNo);
+                    if (msgBoxResult == MessageBoxResult.Yes) UpdateManager.RestartApp();
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }
