@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using Better_Windows_Mouse_Sensitivty.Helper;
 using Better_Windows_Mouse_Sensitivty.Localization;
 using Better_Windows_Mouse_Sensitivty.ViewModels;
 using Better_Windows_Mouse_Sensitivty.Views;
@@ -91,7 +92,7 @@ namespace Better_Windows_Mouse_Sensitivty
                 var result = await updateManager.UpdateApp();
                 if(result != null)
                 {
-                    var popupResult = PopupWindow.ShowDialog(
+                    var popupResult = PopupDialog.ShowDialog(
                         $"{Current.Resources[Keys.UpdateInstalledMessage]}",
                         $"{Current.Resources[Keys.UpdateInstalledTitle]}",
                         PopupButtons.YesNo);
