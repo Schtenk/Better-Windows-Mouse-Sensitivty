@@ -6,11 +6,12 @@
         xmlns:local="clr-namespace:Better_Windows_Mouse_Sensitivty.Views"
         xmlns:ViewModels="clr-namespace:Better_Windows_Mouse_Sensitivty.ViewModels"
         xmlns:Localization="clr-namespace:Better_Windows_Mouse_Sensitivty.Localization"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Height="Auto" Width="650"
         SizeToContent="Height"
-        FontSize="18"
+        FontSize="18" Foreground="{DynamicResource MahApps.Brushes.Text}"
         ResizeMode="NoResize"
         Title="{Binding WindowTitle}">
 
@@ -69,7 +70,7 @@
                             <Run Text="{Binding SensitivityMin}"/><Run Text=","/>
                             <Run Text="{DynamicResource ResourceKey={x:Static Localization:Keys.Max}}"/><Run Text=":"/>
                             <Run Text="{Binding SensitivityMax}"/><Run Text=")"/>
-                            
+
                         </TextBlock>
                     </Label.Content>
                 </Label>
@@ -88,7 +89,7 @@
                     HorizontalAlignment="Stretch"  VerticalAlignment="Center"
                     Margin="5,0,5,0" Height="30"
                     Minimum="{Binding SensitivityMin}" Maximum="{Binding SensitivityMax}"
-                    TickPlacement="Both" TickFrequency="{Binding SensitivitySmallChange}" IsSnapToTickEnabled="True"
+                    TickPlacement="None"
                     SmallChange="{Binding SensitivitySmallChange}" LargeChange="{Binding SensitivityLargeChange}"
                     Value="{Binding Sensitivity}">
                 <Slider.LayoutTransform>
@@ -96,13 +97,14 @@
                 </Slider.LayoutTransform>
             </Slider>
         </Grid>
-        <Border x:Name="Seperator" 
+        <!--<Border x:Name="Seperator" 
                 Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                 VerticalAlignment="Top"
                 BorderBrush="Black"
                 BorderThickness="0,1,0,0">
-        </Border>
-        
+        </Border>-->
+        <Separator HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" Height="10" BorderThickness="2" BorderBrush="{DynamicResource MahApps.Brushes.Text}"/>
+
         <Button x:Name="ConfirmBtn"
                 Grid.Row="3" Grid.Column="0"
                 HorizontalAlignment="Left" VerticalAlignment="Stretch"
@@ -149,5 +151,6 @@
                    Margin="5"
                    FontWeight="DemiBold"
                    Text="{DynamicResource {x:Static Localization:Keys.InfoMessage}}" TextWrapping="Wrap"/>
+       
     </Grid>
 </Window>
